@@ -1,0 +1,56 @@
+@baseUrl = http://localhost:8080
+@auctionId = {{createAuction.response.body.$.id}}
+@userId = {{createUser.response.body.$.id}}
+
+### Create User
+# @name createUser
+POST {{baseUrl}}/user
+Content-Type: application/json
+
+{
+  "name": "Pablo"
+}
+
+### Find User by ID
+GET {{baseUrl}}/user/{{userId}}
+
+### Create Auction
+# @name createAuction
+POST {{baseUrl}}/auction
+Content-Type: application/json
+
+{
+  "product_name": "iPhone 17 Pro Max",
+  "category": "Electronics",
+  "description": "Brand new iPhone 17 Pro Max sealed in box",
+  "condition": 1
+}
+
+### List Auctions (all)
+GET {{baseUrl}}/auction
+
+### List Auctions (active only)
+GET {{baseUrl}}/auction?status=0
+
+### List Auctions (closed only)
+GET {{baseUrl}}/auction?status=1
+
+### Find Auction by ID
+GET {{baseUrl}}/auction/{{auctionId}}
+
+### Find Winning Bid
+GET {{baseUrl}}/auction/winner/{{auctionId}}
+
+### Submit a Bid
+POST {{baseUrl}}/bid
+Content-Type: application/json
+
+{
+  "user_id": "{{userId}}",
+  "auction_id": "{{auctionId}}",
+  "amount": 1600.00
+}
+
+### List Bids for Auction
+GET {{baseUrl}}/bid/{{auctionId}}
+
